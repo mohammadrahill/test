@@ -1,0 +1,31 @@
+body{
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: azure;
+}
+
+.main{
+  width: 300px;
+  background-color: white;
+  margin-top: 100px;
+  padding: 10px;
+}
+
+
+.register{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 10px;
+}
+
+
+.form-main{
+  margin-top: 20px;
+  
+
+}
+
+
