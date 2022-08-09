@@ -3,108 +3,81 @@ import './App.css';
 
 function App() {
 
-  const[detail, setDetail] = useState(
-    {
-      firstName: "",
-      lastName: "",
-      email:"",
-      moblieNumber:"",
-      msg:""
-    }
-  )
+  const[ firstName, setFirstname ]=useState('');
+  const[ lastName, steLastname ]=useState('');
+  const[ email, setEmail ]=useState('');
+  const[ mobileNumber, setMobilenumber ]=useState('');
+  const[ msg, setMsg ]=useState('');
 
 
-  const [submit,setSubmit] = useState(false);
-
+  const [submit, setSubmit] = useState(false);
   const [valid, setValid] = useState(false);
 
-  const handleFirstName = (e)=>{
-    setDetail({...detail, firstName: e.target.value})
+
+const handleSubmit = (e) => {
+  e.preventDefault();
+  if (firstName && lastName && email ) {
+    setValid(true)
   }
-
-  const handleLastName = (e)=>{
-    setDetail({...detail, lastName: e.target.value})
-  }
-  
-
-  const handleEmail = (e)=>{
-    setDetail({...detail, email: e.target.value})
-  }
-
-  const handleMobile = (e)=>{
-    setDetail({...detail, mobileNumber: e.target.value})
-  }
-  
-
-  const handleMsg = (e)=>{
-    setDetail({...detail, msg: e.target.value})
-  }
-
-
-  const handleSubmit = (e)=>{
-    e.preventDefault();
-    if(detail.firstName && detail.lastName && detail.email){
-      setValid(true)
-    }
-    setSubmit(true);
-  }
+  setSubmit(true);
+}
 
 
 
-  return (
-    <div className="main">
-       <form className='register' onSubmit={handleSubmit}>
+ return (
+  <div className="main">
+    <form className='register' onSubmit={handleSubmit}>
 
-       {submit && valid? <div>Sumbitted successfully</div> : null}
+      {submit && valid ? <div>Sumbitted successfully</div> : null}
 
-          <input className='form-main'
-              value={detail.firstName}
-              placeholder='Enter First Name'
-              name='firstName'
-              onChange={handleFirstName}
-              />
-          {submit && !detail.firstName ? <span>Please enter first name</span> : null}
+      <input className='form-main'
+        placeholder='Enter First Name'
+        name='firstName'
+        onChange={(e)=>{setFirstname({...firstName, firstName: e.target.value})}}
+      />
+      {submit && !firstName ? <span>Please enter first name</span> : null}
 
-          <input className='form-main'
-              value={detail.lastName}
-              placeholder='Enter Last Name'
-              name='lastName'
-              onChange={handleLastName}
-              />
-          {submit && !detail.lastName ? <span>Please enter last name</span> : null}
+      <input className='form-main'
+        placeholder='Enter Last Name'
+        name='lastName'
+        onChange={(e)=>{steLastname({...lastName, lastName: e.target.value})}}
+      />
+      {submit && !lastName ? <span>Please enter last name</span> : null}
 
-          <input className='form-main'
-              value={detail.email}
-              placeholder='Enter your email'
-              name='email'
-              onChange={handleEmail}
-              />
-          {submit && !detail.email ? <span>Please enter your email number</span> : null}
-
-
-          <input className='form-main'
-              value={detail.moblieNumber}
-              placeholder='Enter your Mobile number'
-              name='number'
-              onChange={handleMobile}
-              />
+      <input className='form-main'
+        pattern='[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$'
+        placeholder='Enter your email'
+        name='email'
+        onChange={(e)=>{setEmail({...email, email: e.target.value})}}
+        title='Enter valid number'
+      />
+      {submit && !email ? <span>Please enter your email </span> : null}
 
 
-          <textarea className='form-main'
-              value={detail.msg}
-              placeholder='Text us(words limit 100!!)'
-              name='msg'
-              onChange={handleMsg}
-              maxLength="100"
-              />
-          
-        
-          <button className='form-main' type='submit'>Sumbit</button>
+      <input className='form-main'
+        onChange={(e)=>{setMobilenumber({...mobileNumber,mobileNumber: e.target.value})}}
+        pattern='[0-9]{10}'
+        maxLength='10'
+        minLength='10'
+        title='Enter valid number'
+        placeholder='0123456789'
+        name='mobileNumber'
+      />
+
+      <textarea className='form-main'
+        placeholder='Text us(words limit 100!!)'
+        name='msg'
+        onChange={(e)=>{setMsg({...msg, msg: e.target.value})}}
+        maxLength="100"
+      />
+
+
+      <button className='form-main' type='submit'>Sumbit</button>
 
 
 
-       </form>
-    </div>
+    </form>
+  </div>
   );
 }
 
