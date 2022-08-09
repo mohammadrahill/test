@@ -3,20 +3,30 @@ import './App.css';
 
 function App() {
 
-  const[ firstName, setFirstname ]=useState('');
-  const[ lastName, steLastname ]=useState('');
-  const[ email, setEmail ]=useState('');
-  const[ mobileNumber, setMobilenumber ]=useState('');
-  const[ msg, setMsg ]=useState('');
-
+  const [detail, setDetail] = useState(
+    {
+      firstName: "",
+      lastName: "",
+      email: "",
+      moblieNumber: '',
+      msg: ""
+    }
+  )
 
   const [submit, setSubmit] = useState(false);
   const [valid, setValid] = useState(false);
 
 
-const handleSubmit = (e) => {
+  const handleChange =(e)=> {
+    const value = e.target.value;
+    setDetail({
+      ...detail,[e.target.name]: value
+    });
+  }
+
+ const handleSubmit = (e) => {
   e.preventDefault();
-  if (firstName && lastName && email ) {
+  if (detail.firstName && detail.lastName && detail.email) {
     setValid(true)
   }
   setSubmit(true);
@@ -33,29 +43,32 @@ const handleSubmit = (e) => {
       <input className='form-main'
         placeholder='Enter First Name'
         name='firstName'
-        onChange={(e)=>{setFirstname({...firstName, firstName: e.target.value})}}
+        value={detail.firstName}
+        onChange={handleChange}
       />
-      {submit && !firstName ? <span>Please enter first name</span> : null}
+      {submit && !detail.firstName ? <span>Please enter first name</span> : null}
 
       <input className='form-main'
         placeholder='Enter Last Name'
         name='lastName'
-        onChange={(e)=>{steLastname({...lastName, lastName: e.target.value})}}
+        value={detail.lastName}
+        onChange={handleChange}
       />
-      {submit && !lastName ? <span>Please enter last name</span> : null}
+      {submit && !detail.lastName ? <span>Please enter last name</span> : null}
 
       <input className='form-main'
         pattern='[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$'
         placeholder='Enter your email'
         name='email'
-        onChange={(e)=>{setEmail({...email, email: e.target.value})}}
+        onChange={handleChange}
+        value={detail.email}
         title='Enter valid number'
       />
-      {submit && !email ? <span>Please enter your email </span> : null}
+      {submit && !detail.email ? <span>Please enter your email </span> : null}
 
 
       <input className='form-main'
-        onChange={(e)=>{setMobilenumber({...mobileNumber,mobileNumber: e.target.value})}}
+        onChange={handleChange}
         pattern='[0-9]{10}'
         maxLength='10'
         minLength='10'
@@ -67,8 +80,9 @@ const handleSubmit = (e) => {
       <textarea className='form-main'
         placeholder='Text us(words limit 100!!)'
         name='msg'
-        onChange={(e)=>{setMsg({...msg, msg: e.target.value})}}
+        onChange={handleChange}
         maxLength="100"
+        value={detail.msg}
       />
 
 
